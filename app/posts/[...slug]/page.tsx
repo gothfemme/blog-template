@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import { allPosts } from "contentlayer/generated";
-
+import { format, parseISO } from "date-fns";
 import { Metadata } from "next";
 import { Mdx } from "@/components/mdx-components";
+import { Container, Heading, Separator, Text } from "@radix-ui/themes";
 
 interface PostProps {
   params: {
@@ -50,15 +51,24 @@ export default async function PostPage({ params }: PostProps) {
   }
 
   return (
-    <article className="py-6 prose dark:prose-invert">
-      <h1 className="mb-2">{post.title}</h1>
-      {post.description && (
-        <p className="text-xl mt-0 text-slate-700 dark:text-slate-200">
-          {post.description}
-        </p>
-      )}
-      <hr className="my-4" />
-      <Mdx code={post.body.code} />
-    </article>
+    <Container size="2">
+      <article>
+        <Text size="1" mb="1" asChild>
+          <time dateTime={post.date}>
+            {format(parseISO(post.date), "LLLL d, yyyy")}
+          </time>
+        </Text>
+        <Heading size="8" mb="2" asChild>
+          <h1>{post.title}</h1>
+        </Heading>
+        {post.description && (
+          <p className="text-xl mt-0 text-slate-700 dark:text-slate-200">
+            {post.description}
+          </p>
+        )}
+        <Separator my="4" size="4" />
+        <Mdx code={post.body.code} />
+      </article>
+    </Container>
   );
 }
