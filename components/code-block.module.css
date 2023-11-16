@@ -1,0 +1,15 @@
+.pre {
+  position: relative;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-4);
+  border: 1px solid var(--gray-6);
+}
+
+.pre .copyButton {
+  opacity: 0;
+  transition: opacity 80ms ease-out;
+}
+
+.pre:hover .copyButton {
+  opacity: 1;
+}

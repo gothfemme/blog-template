@@ -1,4 +1,5 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
+import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
@@ -49,10 +50,19 @@ export const Post = defineDocumentType(() => ({
   computedFields,
 }));
 
+/** @type {import('rehype-pretty-code').Options} */
+const prettyCodeOptions = {
+  theme: "min-dark",
+  onVisitHighlightedLine(node) {
+    // Each line node by default has `class="line"`.
+    node.properties.className.push("highlighted");
+  },
+};
+
 export default makeSource({
   contentDirPath: "./content",
   documentTypes: [Post, Page],
   mdx: {
-    rehypePlugins: [rehypeSlug],
+    rehypePlugins: [rehypeSlug, [rehypePrettyCode, prettyCodeOptions]],
   },
 });

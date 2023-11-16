@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import * as React from "react";
@@ -22,6 +23,7 @@ import * as themesComponents from "@radix-ui/themes";
 import styles from "./mdx-components.module.css";
 import { cn } from "@/lib/utils";
 import { MDXComponents } from "mdx/types";
+import { CodeBlock } from "./code-block";
 
 export const components: MDXComponents = {
   ...themesComponents,
@@ -120,35 +122,30 @@ export const components: MDXComponents = {
     </Box>
   ),
   blockquote: Blockquote,
-  // pre: (props) => {
-  //   // if (props.children.props.live) {
-  //   //   return (
-  //   //     <PreWithLivePreview
-  //   //       scroll={props.children.props.scroll}
-  //   //       style={props.children.props.style}
-  //   //       {...props}
-  //   //     />
-  //   //   );
-  //   // }
-  //   return <PreWithCopyButton {...props} />;
-  // },
-  code: ({ className, line, live, style, ...props }) => {
+  pre: (props) => {
+    // if (props.children.props.live) {
+    //   return (
+    //     <PreWithLivePreview
+    //       scroll={props.children.props.scroll}
+    //       style={props.children.props.style}
+    //       {...props}
+    //     />
+    //   );
+    // }
+    return <CodeBlock {...props}>{/* <code /> */}</CodeBlock>;
+  },
+  code: ({ line, live, style, ["data-language"]: dataLanguage, ...props }) => {
     // if it's a codeblock (``` block in markdown), it'll have a className from prism
-    const isInlineCode = !className;
+    const isInlineCode = !dataLanguage;
     return isInlineCode ? (
       <Code
-        className={className}
         {...props}
         style={{
           whiteSpace: "break-spaces",
         }}
       />
     ) : (
-      <code
-        className={className}
-        {...props}
-        data-invert-line-highlight={line !== undefined}
-      />
+      <code {...props} data-invert-line-highlight={line !== undefined} />
     );
   },
   Note: ({ children, ...props }) => (

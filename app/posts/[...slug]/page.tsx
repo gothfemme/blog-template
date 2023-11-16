@@ -51,14 +51,14 @@ export default async function PostPage({ params }: PostProps) {
   }
 
   return (
-    <Container size="2">
+    <Container size="2" py="8">
       <article>
-        <Text size="1" mb="1" asChild>
+        <Text size="2" mb="1" asChild>
           <time dateTime={post.date}>
             {format(parseISO(post.date), "LLLL d, yyyy")}
           </time>
         </Text>
-        <Heading size="8" mb="2" asChild>
+        <Heading size="8" mb="3" asChild>
           <h1>{post.title}</h1>
         </Heading>
         {post.description && (
