@@ -1,4 +1,8 @@
-import { defineDocumentType, makeSource } from "contentlayer/source-files";
+import {
+  defineDocumentType,
+  defineNestedType,
+  makeSource,
+} from "contentlayer/source-files";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 
@@ -30,6 +34,29 @@ export const Page = defineDocumentType(() => ({
   computedFields,
 }));
 
+export const GlobalConfig = defineDocumentType(() => ({
+  name: "GlobalConfig",
+  filePathPattern: `config/global.yaml`,
+  isSingleton: true,
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+    },
+  },
+}));
+
+const Category = defineNestedType(() => ({
+  name: "Category",
+  fields: {
+    type: "string",
+    // name: { type: "string", required: true },
+  },
+}));
+
 export const Post = defineDocumentType(() => ({
   name: "Post",
   filePathPattern: `posts/**/*.mdx`,
@@ -46,6 +73,10 @@ export const Post = defineDocumentType(() => ({
       type: "date",
       required: true,
     },
+    categories: {
+      type: "list",
+      of: { type: "string" },
+    },
   },
   computedFields,
 }));
@@ -61,7 +92,7 @@ const prettyCodeOptions = {
 
 export default makeSource({
   contentDirPath: "./content",
-  documentTypes: [Post, Page],
+  documentTypes: [Post, Page, GlobalConfig],
   mdx: {
     rehypePlugins: [rehypeSlug, [rehypePrettyCode, prettyCodeOptions]],
   },

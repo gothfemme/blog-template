@@ -3,15 +3,16 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "@radix-ui/themes/styles.css";
 import { Nav } from "@/components/nav";
-// import ClientProviders from "./client-providers";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import { Theme } from "@radix-ui/themes";
+import { globalConfig } from "@/.contentlayer/generated";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Blog Template",
-  description: "A NextJS + Contentlayer blog template",
+  title: globalConfig.title,
+  description: globalConfig.description,
 };
 
 export default function RootLayout({
@@ -28,8 +29,6 @@ export default function RootLayout({
             <main>{children}</main>
           </Theme>
         </ThemeProvider>
-        {/* <ClientProviders>
-        </ClientProviders> */}
       </body>
     </html>
   );
