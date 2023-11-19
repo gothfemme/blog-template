@@ -1,5 +1,24 @@
 This is a [Next.js](https://nextjs.org/) Blog Template with [Contentlayer](https://contentlayer.dev/).
 
+## What's included
+
+- [x] navigation
+  - [ ] make sticky + add links
+- [] open graph images
+- [x] dark mode toggle
+- [x] anchor links
+- [] Table of contents
+- [] auto update MD datetime
+- [x] categories via Contentlayer
+  - [ ] category list pages
+- [x] home page post list
+  - [] pagination
+- [] sitemap (i think next does this)
+- [] rss 
+- user login / editor backend ?
+- puck ?
+
+
 ## Getting Started
 
 First, run the development server:

@@ -3,16 +3,17 @@ import { allPosts } from "contentlayer/generated";
 import { format, parseISO } from "date-fns";
 import { Metadata } from "next";
 import { Mdx } from "@/components/mdx-components";
-import { Container, Heading, Separator, Text } from "@radix-ui/themes";
+import { Container, Flex, Heading, Separator, Text } from "@radix-ui/themes";
+import { Link } from "@/components/link";
 
 interface PostProps {
   params: {
-    slug: string[];
+    slug: string;
   };
 }
 
 async function getPostFromParams(params: PostProps["params"]) {
-  const slug = params?.slug?.join("/");
+  const slug = params?.slug;
   const post = allPosts.find((post) => post.slugAsParams === slug);
 
   if (!post) {
@@ -39,7 +40,7 @@ export async function generateMetadata({
 
 export async function generateStaticParams(): Promise<PostProps["params"][]> {
   return allPosts.map((post) => ({
-    slug: post.slugAsParams.split("/"),
+    slug: post.slug,
   }));
 }
 
@@ -53,22 +54,28 @@ export default async function PostPage({ params }: PostProps) {
   return (
     <Container size="2" py="8">
       <article>
-        <Text size="2" mb="1" asChild>
+        <Text size="2" asChild color="gray">
           <time dateTime={post.date}>
             {format(parseISO(post.date), "LLLL d, yyyy")}
           </time>
         </Text>
-        <Heading size="8" mb="3" asChild>
-          <h1>{post.title}</h1>
+        <Heading size="8" as="h1">
+          {post.title}
         </Heading>
         {post.description && (
-          <p className="text-xl mt-0 text-slate-700 dark:text-slate-200">
+          <Text size="5" mb="6" as="p" color="gray">
             {post.description}
-          </p>
+          </Text>
         )}
-        <Separator my="4" size="4" />
         <Mdx code={post.body.code} />
       </article>
+      <Flex gap="2" mt="8">
+        {post.categories?.map((cat) => (
+          <Link key={`category-${cat}`} href={`tags/${cat}`}>
+            #{cat}
+          </Link>
+        ))}
+      </Flex>
     </Container>
   );
 }

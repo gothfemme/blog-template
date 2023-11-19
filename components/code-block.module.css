@@ -3,6 +3,10 @@
   padding: var(--space-4) var(--space-5);
   border-radius: var(--radius-4);
   border: 1px solid var(--gray-6);
+  white-space: pre;
+  font-size: var(--font-size-2);
+  overflow-x: auto;
+  margin-block: var(--space-5);
 }
 
 .pre .copyButton {

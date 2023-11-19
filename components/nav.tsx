@@ -12,7 +12,19 @@ const ThemeToggle = dynamic(
 
 export function Nav() {
   return (
-    <Box asChild p="2" style={{ borderBottom: "1px solid var(--gray-5)" }}>
+    <Box
+      asChild
+      px="2"
+      py="3"
+      position={"fixed"}
+      top={"0"}
+      width={"100%"}
+      style={{
+        backgroundColor: "var(--gray-1)",
+        borderBottom: "1px solid var(--gray-5)",
+        zIndex: "999",
+      }}
+    >
       <header>
         <Container size={"2"}>
           <Flex align="center" gap="2">

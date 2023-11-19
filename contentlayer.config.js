@@ -5,6 +5,8 @@ import {
 } from "contentlayer/source-files";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
+import remarkHint from "remark-hint";
 
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
@@ -94,6 +96,7 @@ export default makeSource({
   contentDirPath: "./content",
   documentTypes: [Post, Page, GlobalConfig],
   mdx: {
+    remarkPlugins: [remarkGfm, remarkHint],
     rehypePlugins: [rehypeSlug, [rehypePrettyCode, prettyCodeOptions]],
   },
 });

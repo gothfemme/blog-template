@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import * as React from "react";
 import NextLink from "next/link";
-import { Link2Icon } from "@radix-ui/react-icons";
+import { InfoCircledIcon, Link2Icon } from "@radix-ui/react-icons";
 
 import {
   Blockquote,
@@ -18,6 +18,8 @@ import {
   Strong,
   Tabs,
   Text,
+  Table,
+  Callout,
 } from "@radix-ui/themes";
 import * as themesComponents from "@radix-ui/themes";
 import styles from "./mdx-components.module.css";
@@ -86,7 +88,30 @@ export const components: MDXComponents = {
       <h4 style={{ scrollMarginTop: "var(--space-9)" }}>{children}</h4>
     </Heading>
   ),
-  p: (props) => <Text mb="3" as="p" size="3" {...props} />,
+  p: ({ children, ...props }) => {
+    if (props.className?.includes("hint")) {
+      let color = "blue";
+      if (props.className.includes("warn")) {
+        color = "yellow";
+      }
+      if (props.className.includes("error")) {
+        color = "red";
+      }
+      return (
+        <Callout.Root my="3" color={color}>
+          <Callout.Icon>
+            <InfoCircledIcon />
+          </Callout.Icon>
+          <Callout.Text {...props}>{children}</Callout.Text>
+        </Callout.Root>
+      );
+    }
+    return (
+      <Text mb="3" as="p" size="3" {...props}>
+        {children}
+      </Text>
+    );
+  },
   a: ({ href = "", ...props }) => {
     if (href.startsWith("http")) {
       return <Link {...props} href={href} target="_blank" rel="noopener" />;
@@ -97,22 +122,17 @@ export const components: MDXComponents = {
       </NextLink>
     );
   },
-  hr: (props) => (
-    <Separator size="2" {...props} my="6" style={{ marginInline: "auto" }} />
-  ),
+  hr: (props) => <Separator size="4" {...props} my="6" />,
   ul: (props) => <ul {...props} className={styles.List} />,
-  ol:
-    (props) =>
-    ({ children, ...props }) =>
-      (
-        <Box {...props} mb="3" pl="4" asChild>
-          <ol>{children}</ol>
-        </Box>
-      ),
+  ol: ({ children, ...props }) => (
+    <Box mb="3" pl="4" asChild>
+      <ol {...props}>{children}</ol>
+    </Box>
+  ),
   li: (props) => (
-    <li className={styles.ListItem}>
-      <Text {...props} />
-    </li>
+    <Text my="3" size="3" asChild>
+      <li {...props}></li>
+    </Text>
   ),
   em: Em,
   strong: Strong,
@@ -154,8 +174,21 @@ export const components: MDXComponents = {
     </Box>
   ),
   // Highlights,
+  table: ({ children }) => (
+    <Table.Root my="6" variant="surface">
+      {children}
+    </Table.Root>
+  ),
+  thead: ({ children }) => <Table.Header>{children}</Table.Header>,
+  tbody: ({ children }) => <Table.Body>{children}</Table.Body>,
+  tr: ({ children }) => <Table.Row>{children}</Table.Row>,
+  th: ({ children }) => (
+    <Table.ColumnHeaderCell>{children}</Table.ColumnHeaderCell>
+  ),
+  td: ({ children }) => <Table.Cell>{children}</Table.Cell>,
   Kbd: Kbd,
   Code,
+  Image,
   // CssVariablesTable: (props) => (
   //   <Box mt="2">
   //     <CssVariablesTable {...props} />
@@ -208,10 +241,6 @@ const LinkHeading = ({
     </a>
   </Link>
 );
-
-// const components = {
-//   Image,
-// };
 
 interface MdxProps {
   code: string;
