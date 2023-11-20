@@ -29,8 +29,6 @@ import { CodeBlock } from "./code-block";
 
 export const components: MDXComponents = {
   ...themesComponents,
-  // ColorScale,
-  // ColorScaleGroup,
   Tabs: Tabs.Root,
   TabsList: Tabs.List,
   TabsContent: Tabs.Content,
@@ -40,29 +38,17 @@ export const components: MDXComponents = {
       <h1 {...props} style={{ scrollMarginTop: "var(--space-9)" }} />
     </Heading>
   ),
-  Description: ({ children, ...props }) => {
-    // takes the text even if it's wrapped in `<p>`
-    // https://github.com/wooorm/xdm/issues/47
-    const childText =
-      typeof children === "string" ? children : children.props.children;
-    return (
-      <Text as="p" size="4" mt="2" mb="7" color="gray" {...props}>
-        {childText}
-      </Text>
-    );
-  },
   h2: ({ children, id, ...props }) => (
     <Heading
       size="6"
       mt="7"
       mb="2"
       asChild
-      {...props}
       id={id}
       style={{ scrollMarginTop: "var(--space-9)" }}
       data-heading
     >
-      <h2>
+      <h2 {...props}>
         <LinkHeading id={id}>{children}</LinkHeading>
       </h2>
     </Heading>
@@ -72,20 +58,25 @@ export const components: MDXComponents = {
       size="5"
       mt="7"
       mb="2"
-      asChild
-      {...props}
       id={id}
       style={{ scrollMarginTop: "var(--space-9)" }}
+      asChild
       data-heading
     >
-      <h3>
+      <h3 {...props}>
         <LinkHeading id={id}>{children}</LinkHeading>
       </h3>
     </Heading>
   ),
   h4: ({ children, ...props }) => (
-    <Heading asChild size="4" mt="6" mb="3" {...props}>
-      <h4 style={{ scrollMarginTop: "var(--space-9)" }}>{children}</h4>
+    <Heading
+      size="4"
+      mt="6"
+      mb="3"
+      style={{ scrollMarginTop: "var(--space-9)" }}
+      asChild
+    >
+      <h4 {...props}>{children}</h4>
     </Heading>
   ),
   p: ({ children, ...props }) => {
@@ -122,7 +113,11 @@ export const components: MDXComponents = {
       </NextLink>
     );
   },
-  hr: (props) => <Separator size="4" {...props} my="6" />,
+  hr: ({ ...props }) => (
+    <Separator size="4" my="6" asChild>
+      <hr {...props} />
+    </Separator>
+  ),
   ul: (props) => <ul {...props} className={styles.List} />,
   ol: ({ children, ...props }) => (
     <Box mb="3" pl="4" asChild>
@@ -186,8 +181,19 @@ export const components: MDXComponents = {
     <Table.ColumnHeaderCell>{children}</Table.ColumnHeaderCell>
   ),
   td: ({ children }) => <Table.Cell>{children}</Table.Cell>,
-  Kbd: Kbd,
+  Kbd,
   Code,
+  Description: ({ children, ...props }) => {
+    // takes the text even if it's wrapped in `<p>`
+    // https://github.com/wooorm/xdm/issues/47
+    const childText =
+      typeof children === "string" ? children : children.props.children;
+    return (
+      <Text as="p" size="4" mt="2" mb="7" color="gray" {...props}>
+        {childText}
+      </Text>
+    );
+  },
   Image,
   // CssVariablesTable: (props) => (
   //   <Box mt="2">
@@ -223,7 +229,7 @@ const LinkHeading = ({
   className,
   ...props
 }: {
-  id: string;
+  id?: string;
   children: React.ReactNode;
 } & React.ComponentProps<typeof Link>) => (
   <Link

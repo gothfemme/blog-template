@@ -33,8 +33,8 @@ export default function RootLayout({
             <Nav />
             <main
               style={{
-                marginTop: "var(--space-8)",
-                paddingInline: "var(--space-2)",
+                marginTop: "var(--space-6)",
+                paddingInline: "var(--space-4)",
               }}
             >
               {children}

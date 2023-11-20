@@ -70,9 +70,9 @@ export default async function PostPage({ params }: PostProps) {
         <Mdx code={post.body.code} />
       </article>
       <Flex gap="2" mt="8">
-        {post.categories?.map((cat) => (
-          <Link key={`category-${cat}`} href={`tags/${cat}`}>
-            #{cat}
+        {post.tags?.map((tag) => (
+          <Link key={`tags-${tag}`} href={`tags/${tag}`}>
+            #{tag}
           </Link>
         ))}
       </Flex>

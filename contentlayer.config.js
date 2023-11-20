@@ -75,7 +75,7 @@ export const Post = defineDocumentType(() => ({
       type: "date",
       required: true,
     },
-    categories: {
+    tags: {
       type: "list",
       of: { type: "string" },
     },
