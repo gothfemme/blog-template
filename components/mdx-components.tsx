@@ -3,7 +3,13 @@ import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import * as React from "react";
 import NextLink from "next/link";
-import { InfoCircledIcon, Link2Icon } from "@radix-ui/react-icons";
+import {
+  CheckCircledIcon,
+  CrossCircledIcon,
+  ExclamationTriangleIcon,
+  InfoCircledIcon,
+  Link2Icon,
+} from "@radix-ui/react-icons";
 
 import {
   Blockquote,
@@ -80,28 +86,45 @@ export const components: MDXComponents = {
     </Heading>
   ),
   p: ({ children, ...props }) => {
-    if (props.className?.includes("hint")) {
-      let color = "blue";
-      if (props.className.includes("warn")) {
-        color = "yellow";
-      }
-      if (props.className.includes("error")) {
-        color = "red";
-      }
-      return (
-        <Callout.Root my="3" color={color}>
-          <Callout.Icon>
-            <InfoCircledIcon />
-          </Callout.Icon>
-          <Callout.Text {...props}>{children}</Callout.Text>
-        </Callout.Root>
-      );
-    }
     return (
       <Text mb="3" as="p" size="3" {...props}>
         {children}
       </Text>
     );
+  },
+  aside: ({ children, ...props }) => {
+    if (props.className?.includes("hint")) {
+      let color = "gray";
+      let Icon = InfoCircledIcon;
+
+      if (props.className.includes("info")) {
+        color = "blue";
+      }
+      if (props.className.includes("tip")) {
+        color = "green";
+        Icon = CheckCircledIcon;
+      }
+      if (props.className.includes("warning")) {
+        color = "yellow";
+        Icon = ExclamationTriangleIcon;
+      }
+
+      if (props.className.includes("danger")) {
+        color = "red";
+        Icon = CrossCircledIcon;
+      }
+
+      return (
+        <Callout.Root my="3" color={color}>
+          <Callout.Icon>
+            <Icon />
+          </Callout.Icon>
+          <Callout.Text {...props}>
+            <>{children}</>
+          </Callout.Text>
+        </Callout.Root>
+      );
+    }
   },
   a: ({ href = "", ...props }) => {
     if (href.startsWith("http")) {
@@ -169,11 +192,7 @@ export const components: MDXComponents = {
     </Box>
   ),
   // Highlights,
-  table: ({ children }) => (
-    <Table.Root my="6" variant="surface">
-      {children}
-    </Table.Root>
-  ),
+  table: ({ children }) => <Table.Root my="6">{children}</Table.Root>,
   thead: ({ children }) => <Table.Header>{children}</Table.Header>,
   tbody: ({ children }) => <Table.Body>{children}</Table.Body>,
   tr: ({ children }) => <Table.Row>{children}</Table.Row>,

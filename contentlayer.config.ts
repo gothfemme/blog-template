@@ -1,15 +1,18 @@
 import {
+  ComputedFields,
   defineDocumentType,
-  defineNestedType,
   makeSource,
 } from "contentlayer/source-files";
-import rehypePrettyCode from "rehype-pretty-code";
+import rehypePrettyCode, {
+  LineElement,
+  Options as PrettyCodeOptions,
+} from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
-import remarkHint from "remark-hint";
+import remarkDirective from "remark-directive";
+import remarkCalloutDirectives from "./lib/remark-callout-directives-plugin";
 
-/** @type {import('contentlayer/source-files').ComputedFields} */
-const computedFields = {
+const computedFields: ComputedFields = {
   slug: {
     type: "string",
     resolve: (doc) => `/${doc._raw.flattenedPath}`,
@@ -36,29 +39,6 @@ export const Page = defineDocumentType(() => ({
   computedFields,
 }));
 
-export const GlobalConfig = defineDocumentType(() => ({
-  name: "GlobalConfig",
-  filePathPattern: `config/global.yaml`,
-  isSingleton: true,
-  fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-    },
-  },
-}));
-
-const Category = defineNestedType(() => ({
-  name: "Category",
-  fields: {
-    type: "string",
-    // name: { type: "string", required: true },
-  },
-}));
-
 export const Post = defineDocumentType(() => ({
   name: "Post",
   filePathPattern: `posts/**/*.mdx`,
@@ -83,20 +63,19 @@ export const Post = defineDocumentType(() => ({
   computedFields,
 }));
 
-/** @type {import('rehype-pretty-code').Options} */
-const prettyCodeOptions = {
+const prettyCodeOptions: PrettyCodeOptions = {
   theme: "min-dark",
-  onVisitHighlightedLine(node) {
+  onVisitHighlightedLine(node: LineElement) {
     // Each line node by default has `class="line"`.
-    node.properties.className.push("highlighted");
+    node.properties.className?.push("highlighted");
   },
 };
 
 export default makeSource({
   contentDirPath: "./content",
-  documentTypes: [Post, Page, GlobalConfig],
+  documentTypes: [Post, Page],
   mdx: {
-    remarkPlugins: [remarkGfm, remarkHint],
+    remarkPlugins: [remarkGfm, remarkDirective, remarkCalloutDirectives],
     rehypePlugins: [rehypeSlug, [rehypePrettyCode, prettyCodeOptions]],
   },
 });

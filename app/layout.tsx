@@ -6,8 +6,8 @@ import "./theme-config.css";
 import { Nav } from "@/components/nav";
 
 import { ThemeProvider } from "@/components/theme-provider";
-import { Box, Theme } from "@radix-ui/themes";
-import { globalConfig } from "@/.contentlayer/generated";
+import { Theme } from "@radix-ui/themes";
+import { globalConfig } from "@/config/global";
 
 const inter = Inter({
   subsets: ["latin"],
