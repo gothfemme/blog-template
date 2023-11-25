@@ -1,7 +1,9 @@
 import { Box, IconButton } from "@radix-ui/themes";
 import { CheckIcon, ClipboardIcon } from "@radix-ui/react-icons";
 import { HTMLAttributes, PropsWithChildren, useState } from "react";
+
 import { cn } from "@/lib/utils";
+
 import styles from "./code-block.module.css";
 
 export const CopyButton = ({ text }: { text: string }) => {
@@ -18,8 +20,7 @@ export const CopyButton = ({ text }: { text: string }) => {
 
   return (
     <IconButton
-      disabled={isCopied}
-      onClick={copy}
+      onClick={() => void copy()}
       aria-label="Copy to clipboard"
       className={styles.copyButton}
       variant="soft"

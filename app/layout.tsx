@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Theme } from "@radix-ui/themes";
+
 import "./globals.css";
 import "@radix-ui/themes/styles.css";
 import "./theme-config.css";
-import { Nav } from "@/components/nav";
 
+import { Nav } from "@/components/nav";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Theme } from "@radix-ui/themes";
 import { globalConfig } from "@/config/global";
 
 const inter = Inter({
@@ -24,17 +25,17 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}): JSX.Element {
   return (
-    <html lang="en" suppressHydrationWarning className={inter.variable}>
+    <html className={inter.variable} lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Theme accentColor="blue" grayColor="gray" scaling="105%">
+          <Theme accentColor="blue" grayColor="auto">
             <Nav />
             <main
               style={{
                 marginTop: "var(--space-6)",
-                paddingInline: "var(--space-4)",
+                paddingInline: "var(--space-6)",
               }}
             >
               {children}

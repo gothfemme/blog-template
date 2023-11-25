@@ -1,5 +1,6 @@
-import { getPostFromSlug } from "@/lib/posts";
 import { ImageResponse } from "next/og";
+
+import { getPostFromSlug } from "@/lib/posts";
 
 export const alt = "Blog";
 export const size = {
@@ -8,8 +9,8 @@ export const size = {
 };
 export const contentType = "image/png";
 
-export default async function Image({ params }: { params: { slug: string } }) {
-  const slug = params?.slug;
+export default function Image({ params }: { params: { slug: string } }) {
+  const slug = params.slug;
 
   const post = getPostFromSlug(slug);
   if (!post) {

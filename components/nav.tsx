@@ -1,7 +1,10 @@
 "use client";
 
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
-import { Box, Container, Flex } from "@radix-ui/themes";
+import { Box, Flex } from "@radix-ui/themes";
+
+import { layoutConfig } from "@/config/layout";
 
 import { Link } from "./link";
 
@@ -14,7 +17,7 @@ export function Nav() {
   return (
     <Box
       asChild
-      px="2"
+      px="4"
       py="3"
       position={"fixed"}
       top={"0"}
@@ -26,16 +29,27 @@ export function Nav() {
       }}
     >
       <header>
-        <Container size={"2"}>
-          <Flex align="center" gap="2">
-            <Flex asChild mr="auto">
-              <nav>
-                <Link href="/">Home</Link>
-              </nav>
-            </Flex>
-            <ThemeToggle />
+        <Flex align="center" gap="4">
+          <Flex asChild mr="auto">
+            <nav>
+              <Link href="/" color="gray" weight="bold">
+                Home
+              </Link>
+            </nav>
           </Flex>
-        </Container>
+          <Flex gap="2" asChild>
+            <nav>
+              {layoutConfig.mainNav.map(({ href, title }) => (
+                <Link href={href} key={`nav-${href}`} color="gray">
+                  {title}
+                </Link>
+              ))}
+            </nav>
+          </Flex>
+          <Suspense>
+            <ThemeToggle />
+          </Suspense>
+        </Flex>
       </header>
     </Box>
   );

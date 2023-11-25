@@ -4,12 +4,14 @@ import {
   GetPropDefTypes,
 } from "@radix-ui/themes";
 import NextLink from "next/link";
+import { CSSProperties } from "react";
 
 export function Link({
   href = "",
   ...props
 }: GetPropDefTypes<typeof linkPropDefs> & {
   href: string;
+  style?: CSSProperties | undefined;
   children: React.ReactNode;
 }) {
   if (href.startsWith("http")) {

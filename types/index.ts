@@ -26,7 +26,7 @@ export type LayoutConfig = {
   sidebarNav: SidebarNavItem[];
 };
 
-export type SiteConfig = {
+export type GlobalConfig = {
   title: string;
   description: string;
 };

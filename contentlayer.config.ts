@@ -1,6 +1,7 @@
 import {
   ComputedFields,
   defineDocumentType,
+  defineNestedType,
   makeSource,
 } from "contentlayer/source-files";
 import rehypePrettyCode, {
@@ -54,6 +55,10 @@ export const Post = defineDocumentType(() => ({
     date: {
       type: "date",
       required: true,
+    },
+    cover: {
+      type: "string",
+      required: false,
     },
     tags: {
       type: "list",

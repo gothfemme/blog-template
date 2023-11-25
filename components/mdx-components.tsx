@@ -154,11 +154,20 @@ export const components: MDXComponents = {
   ),
   em: Em,
   strong: Strong,
-  img: ({ ...props }) => (
-    <Box my="6">
-      <img {...props} style={{ maxWidth: "100%", verticalAlign: "middle" }} />
-    </Box>
-  ),
+  img: ({ src }) =>
+    src ? (
+      <Image
+        alt=""
+        src={src}
+        width={720}
+        height={(720 / 16) * 8}
+        style={{
+          maxWidth: "100%",
+          verticalAlign: "middle",
+          objectFit: "cover",
+        }}
+      />
+    ) : null,
   blockquote: Blockquote,
   pre: (props) => {
     // if (props.children.props.live) {

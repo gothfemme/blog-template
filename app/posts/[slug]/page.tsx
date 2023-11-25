@@ -1,10 +1,20 @@
 import { notFound } from "next/navigation";
-import { allPosts } from "contentlayer/generated";
 import { format, parseISO } from "date-fns";
 import { Metadata } from "next";
-import { Mdx } from "@/components/mdx-components";
-import { Container, Flex, Heading, Separator, Text } from "@radix-ui/themes";
+import {
+  AspectRatio,
+  Badge,
+  Box,
+  Flex,
+  Heading,
+  Section,
+  Text,
+} from "@radix-ui/themes";
+import Image from "next/image";
+
 import { Link } from "@/components/link";
+import { Mdx } from "@/components/mdx-components";
+import { allPosts } from "contentlayer/generated";
 
 interface PostProps {
   params: {
@@ -12,8 +22,8 @@ interface PostProps {
   };
 }
 
-async function getPostFromParams(params: PostProps["params"]) {
-  const slug = params?.slug;
+function getPostFromParams(params: PostProps["params"]) {
+  const slug = params.slug;
   const post = allPosts.find((post) => post.slugAsParams === slug);
 
   if (!post) {
@@ -23,10 +33,8 @@ async function getPostFromParams(params: PostProps["params"]) {
   return post;
 }
 
-export async function generateMetadata({
-  params,
-}: PostProps): Promise<Metadata> {
-  const post = await getPostFromParams(params);
+export function generateMetadata({ params }: PostProps): Metadata {
+  const post = getPostFromParams(params);
 
   if (!post) {
     return {};
@@ -38,21 +46,21 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams(): Promise<PostProps["params"][]> {
+export function generateStaticParams(): PostProps["params"][] {
   return allPosts.map((post) => ({
     slug: post.slug,
   }));
 }
 
-export default async function PostPage({ params }: PostProps) {
-  const post = await getPostFromParams(params);
+export default function PostPage({ params }: PostProps) {
+  const post = getPostFromParams(params);
 
   if (!post) {
     notFound();
   }
 
   return (
-    <Container size="2" py="8">
+    <Section style={{ maxWidth: "48rem" }} mx="auto" py="8">
       <article>
         <Text size="2" asChild color="gray">
           <time dateTime={post.date}>
@@ -67,15 +75,36 @@ export default async function PostPage({ params }: PostProps) {
             {post.description}
           </Text>
         )}
+        {post.cover && (
+          <Box mb="6">
+            <AspectRatio ratio={16 / 8}>
+              <Image
+                src={post.cover}
+                alt=""
+                fill={true}
+                priority
+                style={{
+                  objectFit: "cover",
+                  borderRadius: "var(--radius-4)",
+                }}
+              />
+            </AspectRatio>
+          </Box>
+        )}
         <Mdx code={post.body.code} />
       </article>
       <Flex gap="2" mt="8">
         {post.tags?.map((tag) => (
-          <Link key={`tags-${tag}`} href={`tags/${tag}`}>
-            #{tag}
-          </Link>
+          <Badge key={`tags-${tag}`} variant="surface" radius="full">
+            <Link
+              href={`/tags/${encodeURIComponent(tag)}`}
+              style={{ color: "inherit" }}
+            >
+              #{tag}
+            </Link>
+          </Badge>
         ))}
       </Flex>
-    </Container>
+    </Section>
   );
 }
