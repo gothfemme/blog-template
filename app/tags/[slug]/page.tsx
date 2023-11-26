@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { Container, Heading } from "@radix-ui/themes";
 
-import { PostsList } from "@/components/posts-list";
+import { PostsList } from "@/components/posts/posts-list";
 import { allPosts } from "contentlayer/generated";
 
 interface TagProps {

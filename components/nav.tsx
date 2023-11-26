@@ -37,7 +37,7 @@ export function Nav() {
               </Link>
             </nav>
           </Flex>
-          <Flex gap="2" asChild>
+          <Flex gap="4" asChild>
             <nav>
               {layoutConfig.mainNav.map(({ href, title }) => (
                 <Link href={href} key={`nav-${href}`} color="gray">

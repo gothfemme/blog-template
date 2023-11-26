@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { Post } from "@/.contentlayer/generated";
 
 import { Pagination } from "./pagination";
-import { PostsList } from "./posts-list";
+import { PostsGrid } from "./posts/posts-list";
 
 export function PostsPagination({
   posts,
@@ -23,7 +23,7 @@ export function PostsPagination({
   );
   return (
     <>
-      <PostsList posts={paginatedPosts} />
+      <PostsGrid posts={paginatedPosts} columns="2" />
       <Pagination total={total} perPage={perPage} currentPage={currentPage} />
     </>
   );

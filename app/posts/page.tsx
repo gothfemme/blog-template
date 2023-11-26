@@ -10,11 +10,11 @@ export default function PostsPage() {
   );
 
   return (
-    <Section py="8" mx="auto" style={{ maxWidth: "48rem" }}>
+    <Section py="8" mx="auto" size="3">
       <Heading mb="6" size="8">
         All posts
       </Heading>
-      <PostsPagination total={posts.length} perPage={2} posts={posts} />
+      <PostsPagination total={posts.length} perPage={10} posts={posts} />
     </Section>
   );
 }
