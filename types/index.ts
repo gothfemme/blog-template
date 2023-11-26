@@ -29,4 +29,6 @@ export type LayoutConfig = {
 export type GlobalConfig = {
   title: string;
   description: string;
+  language: string;
+  url: string;
 };
