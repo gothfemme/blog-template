@@ -1,17 +1,12 @@
 "use client";
 
-import { Suspense } from "react";
-import dynamic from "next/dynamic";
 import { Box, Flex } from "@radix-ui/themes";
 
 import { layoutConfig } from "@/config/layout";
 
 import { Link } from "./link";
-
-const ThemeToggle = dynamic(
-  () => import("./theme-toggle").then((mod) => mod.ThemeToggle),
-  { ssr: false }
-);
+import { RssButton } from "./rss-button";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Nav() {
   return (
@@ -46,9 +41,8 @@ export function Nav() {
               ))}
             </nav>
           </Flex>
-          <Suspense>
-            <ThemeToggle />
-          </Suspense>
+          <RssButton />
+          <ThemeToggle />
         </Flex>
       </header>
     </Box>

@@ -1,0 +1,11 @@
+.moon {
+  display: none;
+}
+
+html:global(.dark) .moon {
+  display: initial;
+}
+
+html:global(.dark) .sun {
+  display: none;
+}
