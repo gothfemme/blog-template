@@ -1,7 +1,9 @@
 "use client";
 
 import { Box, Flex } from "@radix-ui/themes";
+import { usePathname } from "next/navigation";
 
+import { globalConfig } from "@/config/global";
 import { layoutConfig } from "@/config/layout";
 
 import { Link } from "./link";
@@ -9,6 +11,7 @@ import { RssButton } from "./rss-button";
 import { ThemeToggle } from "./theme-toggle";
 
 export function Nav() {
+  const path = usePathname();
   return (
     <Box
       asChild
@@ -28,14 +31,19 @@ export function Nav() {
           <Flex asChild mr="auto">
             <nav>
               <Link href="/" color="gray" weight="bold">
-                Home
+                {globalConfig.title}
               </Link>
             </nav>
           </Flex>
           <Flex gap="4" asChild>
             <nav>
               {layoutConfig.mainNav.map(({ href, title }) => (
-                <Link href={href} key={`nav-${href}`} color="gray">
+                <Link
+                  href={href}
+                  key={`nav-${href}`}
+                  color="gray"
+                  highContrast={href === path}
+                >
                   {title}
                 </Link>
               ))}

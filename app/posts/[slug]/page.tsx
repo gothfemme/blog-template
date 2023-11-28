@@ -3,7 +3,6 @@ import { format, parseISO } from "date-fns";
 import { Metadata } from "next";
 import {
   AspectRatio,
-  Badge,
   Box,
   Flex,
   Heading,
@@ -12,9 +11,9 @@ import {
 } from "@radix-ui/themes";
 import Image from "next/image";
 
-import { Link } from "@/components/link";
 import { Mdx } from "@/components/mdx-components";
 import { allPosts } from "contentlayer/generated";
+import { TagBadge } from "@/components/posts/tag-badge";
 
 interface PostProps {
   params: {
@@ -24,7 +23,7 @@ interface PostProps {
 
 function getPostFromParams(params: PostProps["params"]) {
   const slug = params.slug;
-  const post = allPosts.find((post) => post.slugAsParams === slug);
+  const post = allPosts.find((post) => post.slug === slug);
 
   if (!post) {
     null;
@@ -95,14 +94,7 @@ export default function PostPage({ params }: PostProps) {
       </article>
       <Flex gap="2" mt="8">
         {post.tags?.map((tag) => (
-          <Badge key={`tags-${tag}`} variant="surface" radius="full">
-            <Link
-              href={`/tags/${encodeURIComponent(tag)}`}
-              style={{ color: "inherit" }}
-            >
-              #{tag}
-            </Link>
-          </Badge>
+          <TagBadge key={`tags-${tag._id}`} tag={tag.title} />
         ))}
       </Flex>
     </Section>

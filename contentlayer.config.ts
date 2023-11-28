@@ -1,7 +1,6 @@
 import {
   ComputedFields,
   defineDocumentType,
-  defineNestedType,
   makeSource,
 } from "contentlayer/source-files";
 import rehypePrettyCode, {
@@ -11,6 +10,8 @@ import rehypePrettyCode, {
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import remarkDirective from "remark-directive";
+
+import { Post } from "./models/document/post";
 import remarkCalloutDirectives from "./lib/remark-callout-directives-plugin";
 
 const computedFields: ComputedFields = {
@@ -40,33 +41,38 @@ export const Page = defineDocumentType(() => ({
   computedFields,
 }));
 
-export const Post = defineDocumentType(() => ({
-  name: "Post",
-  filePathPattern: `posts/**/*.mdx`,
-  contentType: "mdx",
-  fields: {
-    title: {
-      type: "string",
-      required: true,
-    },
-    description: {
-      type: "string",
-    },
-    date: {
-      type: "date",
-      required: true,
-    },
-    cover: {
-      type: "string",
-      required: false,
-    },
-    tags: {
-      type: "list",
-      of: { type: "string" },
-    },
-  },
-  computedFields,
-}));
+// export const Post = defineDocumentType(() => ({
+//   name: "Post",
+//   filePathPattern: `posts/**/*.mdx`,
+//   contentType: "mdx",
+//   fields: {
+//     title: {
+//       type: "string",
+//       required: true,
+//     },
+//     description: {
+//       type: "string",
+//     },
+//     date: {
+//       type: "date",
+//       required: true,
+//     },
+//     cover: {
+//       type: "string",
+//       required: false,
+//     },
+//     category: {
+//       type: "enum",
+//       options: POST_CATEGORIES,
+//       default: "uncategorized",
+//     },
+//     tags: {
+//       type: "list",
+//       of: { type: "string" },
+//     },
+//   },
+//   computedFields,
+// }));
 
 const prettyCodeOptions: PrettyCodeOptions = {
   theme: "min-dark",
