@@ -12,6 +12,7 @@ import remarkGfm from "remark-gfm";
 import remarkDirective from "remark-directive";
 
 import { Post } from "./models/document/post";
+import { Doc } from "./models/document/doc";
 import remarkCalloutDirectives from "./lib/remark-callout-directives-plugin";
 
 const computedFields: ComputedFields = {
@@ -84,7 +85,7 @@ const prettyCodeOptions: PrettyCodeOptions = {
 
 export default makeSource({
   contentDirPath: "./content",
-  documentTypes: [Post, Page],
+  documentTypes: [Post, Doc, Page],
   mdx: {
     remarkPlugins: [remarkGfm, remarkDirective, remarkCalloutDirectives],
     rehypePlugins: [rehypeSlug, [rehypePrettyCode, prettyCodeOptions]],

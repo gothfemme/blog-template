@@ -1,5 +1,5 @@
 import { compareDesc } from "date-fns";
-import { Flex, Section } from "@radix-ui/themes";
+import { Container, Flex, Section } from "@radix-ui/themes";
 
 import { allPosts } from "@/.contentlayer/generated";
 import { PostsGrid, PostsList } from "@/components/posts/posts-list";
@@ -11,11 +11,13 @@ export default function Home() {
     .slice(0, 3);
 
   return (
-    <Section py="8" mx="auto" size={"3"}>
-      <PostsList posts={posts} />
-      <Flex mt="6" justify={"center"}>
-        <Link href="/posts">All Posts</Link>
-      </Flex>
-    </Section>
+    <Container size={"3"}>
+      <Section py="8" mx="auto">
+        <PostsList posts={posts} />
+        <Flex mt="6" justify={"center"}>
+          <Link href="/posts">All Posts</Link>
+        </Flex>
+      </Section>
+    </Container>
   );
 }

@@ -14,11 +14,11 @@ export function Pagination({
   const totalPages = Math.ceil(total / perPage);
 
   return (
-    <Flex align={"center"} justify="center" gap="4" mt="6">
+    <Flex align={"center"} justify="center" gap="4" mt="8">
       <IconButton
         disabled={currentPage < 2}
         color="gray"
-        variant="outline"
+        variant="soft"
         asChild
       >
         {currentPage < 2 ? (
@@ -38,7 +38,7 @@ export function Pagination({
             <IconButton
               key={`pagination-${pageNum}`}
               color={currentPage === pageNum ? "blue" : "gray"}
-              variant={currentPage === pageNum ? "solid" : "outline"}
+              variant={currentPage === pageNum ? "solid" : "soft"}
               asChild
             >
               <Link href={`?page=${pageNum}`}>{pageNum}</Link>
@@ -49,7 +49,7 @@ export function Pagination({
       <IconButton
         disabled={currentPage >= totalPages}
         color="gray"
-        variant="outline"
+        variant="soft"
         asChild
       >
         {currentPage >= totalPages ? (

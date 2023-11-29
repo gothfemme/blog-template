@@ -22,7 +22,7 @@ function PostRoot({
     );
   }
   return (
-    <Grid columns={"2"} gap={"4"} asChild>
+    <Grid columns={"4fr 6fr"} gap={"6"} asChild>
       <article>{children}</article>
     </Grid>
   );
@@ -35,7 +35,10 @@ function PostCover({ cover, slug }: Pick<Post, "cover" | "slug">) {
   return (
     <Box
       position={"relative"}
-      style={{ minHeight: 200, backgroundColor: "var(--gray-1)" }}
+      style={{
+        minHeight: 200,
+        backgroundColor: "var(--gray-1)",
+      }}
     >
       <Link href={slug}>
         <Image
@@ -77,7 +80,7 @@ export function PostItem({
             {post.title}
           </Heading>
         </Link>
-        <Flex gap="4" align="center">
+        <Flex gap="4" align="center" justify={"start"}>
           <CategoryBadge category={post.category} />
           <PostTimestamp date={post.date} />
         </Flex>

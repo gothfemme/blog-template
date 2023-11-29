@@ -8,3 +8,27 @@ export const layoutConfig: LayoutConfig = {
   ],
   sidebarNav: [],
 };
+
+export const docsConfig: LayoutConfig = {
+  mainNav: [],
+  sidebarNav: [
+    {
+      title: "Documentation",
+      items: [
+        {
+          title: "Introduction",
+          href: "/docs",
+        },
+      ],
+    },
+    {
+      title: "Overview",
+      items: [
+        {
+          title: "Getting Started",
+          href: "/docs/overview/getting-started",
+        },
+      ],
+    },
+  ],
+};

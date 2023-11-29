@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Theme } from "@radix-ui/themes";
 
-import "./globals.css";
+import "@/styles/globals.css";
 import "@radix-ui/themes/styles.css";
-import "./theme-config.css";
+import "@/styles/theme-config.css";
 
 import { Nav } from "@/components/nav";
 import { ThemeProvider } from "@/components/theme-provider";
