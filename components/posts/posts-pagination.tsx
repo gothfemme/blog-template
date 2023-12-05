@@ -2,9 +2,9 @@
 import { useSearchParams } from "next/navigation";
 
 import { Post } from "@/.contentlayer/generated";
+import { Pagination } from "@/components/pagination";
 
-import { Pagination } from "./pagination";
-import { PostsGrid } from "./posts/posts-list";
+import { PostsGrid } from "./posts-list";
 
 export function PostsPagination({
   posts,

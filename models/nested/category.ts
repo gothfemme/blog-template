@@ -4,6 +4,6 @@ import { defineNestedType } from "contentlayer/source-files";
 export const Category = defineNestedType(() => ({
   name: "Category",
   fields: {
-    title: { type: "string", required: true },
+    title: { type: "string", required: true, default: "uncategorized" },
   },
 }));

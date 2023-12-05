@@ -11,8 +11,7 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import remarkDirective from "remark-directive";
 
-import { Post } from "./models/document/post";
-import { Doc } from "./models/document/doc";
+import { Doc, Post } from "./models";
 import remarkCalloutDirectives from "./lib/remark-callout-directives-plugin";
 
 const computedFields: ComputedFields = {

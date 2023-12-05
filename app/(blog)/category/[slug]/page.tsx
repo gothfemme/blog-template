@@ -6,17 +6,17 @@ import { sluggify } from "@/lib/utils";
 import { PostsPagination } from "@/components/posts/posts-pagination";
 import { PostsPageLayout } from "@/components/layouts/posts-page";
 
-interface TagProps {
+interface CategoryPageProps {
   params: {
     slug?: string;
   };
 }
 
-function getPostsFromTagParams(params: TagProps["params"]) {
+function getPostsFromCategoryParams(params: CategoryPageProps["params"]) {
   const slug = params.slug;
   const posts = slug
     ? allPosts.filter(
-        (post) => post.tags?.map((t) => sluggify(t.title)).includes(slug)
+        (post) => sluggify(post.category?.title ?? "uncategorized") === slug
       )
     : [];
 
@@ -27,7 +27,7 @@ function getPostsFromTagParams(params: TagProps["params"]) {
   return posts;
 }
 
-export function generateMetadata({ params }: TagProps): Metadata {
+export function generateMetadata({ params }: CategoryPageProps): Metadata {
   const slug = params.slug;
 
   if (!slug) {
@@ -36,28 +36,34 @@ export function generateMetadata({ params }: TagProps): Metadata {
 
   return {
     title: slug,
-    description: `Posts with the tag ${slug}`,
+    description: `Posts with the category ${slug}`,
   };
 }
 
-export function generateStaticParams(): TagProps["params"][] {
-  const tags = Array.from(new Set(allPosts.flatMap((post) => post.tags ?? [])));
-  return tags.map((tag) => ({
-    slug: sluggify(tag.title),
+export function generateStaticParams(): CategoryPageProps["params"][] {
+  const categories = Array.from(
+    new Set(
+      allPosts.flatMap((post) =>
+        sluggify(post.category?.title ?? "uncategorized")
+      )
+    )
+  );
+  return categories.map((slug) => ({
+    slug,
   }));
 }
 
-export default function TagsPage({ params }: TagProps) {
+export default function TagsPage({ params }: CategoryPageProps) {
   const slug = params.slug;
 
-  const posts = getPostsFromTagParams(params);
+  const posts = getPostsFromCategoryParams(params);
 
   if (!posts) {
     notFound();
   }
 
   return (
-    <PostsPageLayout title={`#${slug}`}>
+    <PostsPageLayout title={`Category: ${slug}`}>
       <PostsPagination posts={posts} total={posts.length} />
     </PostsPageLayout>
   );

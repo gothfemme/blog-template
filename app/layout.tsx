@@ -9,6 +9,8 @@ import "@/styles/theme-config.css";
 import { Nav } from "@/components/nav";
 import { ThemeProvider } from "@/components/theme-provider";
 import { globalConfig } from "@/config/global";
+import { Main } from "@/components/main";
+import { Footer } from "@/components/footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,14 +34,8 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Theme accentColor="blue" grayColor="auto">
             <Nav />
-            <main
-              style={{
-                marginTop: "var(--space-6)",
-                paddingInline: "var(--space-6)",
-              }}
-            >
-              {children}
-            </main>
+            <Main>{children}</Main>
+            <Footer />
           </Theme>
         </ThemeProvider>
       </body>

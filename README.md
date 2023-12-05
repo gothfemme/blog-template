@@ -7,15 +7,18 @@ This is a [Next.js](https://nextjs.org/) Blog Template with [Contentlayer](https
 - [x] open graph images
 - [x] dark mode toggle
 - [x] anchor links
-- [] Table of contents
+- [x] Table of contents
 - [] auto update MD datetime
+  - maybe?
+- [x] tags via Contentlayer
+  - [x] tags list pages
 - [x] categories via Contentlayer
-  - [x] category list pages
+  - [] categories list pages
 - [x] home page post list
-  - [] pagination
-- [] all posts page
-- [] sitemap (i think next does this)
-- [] rss
+  - [x] pagination
+- [x] all posts page
+- [x] sitemap (i think next does this)
+- [x] rss
 - user login / editor backend ?
 - puck ?
 

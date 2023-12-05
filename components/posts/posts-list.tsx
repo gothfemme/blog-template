@@ -22,7 +22,7 @@ export function PostsGrid({
   columns?: "1" | "2" | "3";
 }) {
   return (
-    <Grid columns={{ initial: "1", sm: columns }} gapY="6" gapX="6">
+    <Grid columns={{ initial: "1", sm: columns }} gapY="8" gapX="6">
       {posts.map((post) => (
         <PostItem post={post} key={post._id} orientation="vertical" />
       ))}
