@@ -14,6 +14,7 @@ import Image from "next/image";
 import { Mdx } from "@/components/mdx-components";
 import { allPosts } from "contentlayer/generated";
 import { TagBadge } from "@/components/posts/tag-badge";
+import { CategoryBadge } from "@/components/posts/category-badge";
 
 interface PostProps {
   params: {
@@ -61,21 +62,24 @@ export default function PostPage({ params }: PostProps) {
   return (
     <Section style={{ maxWidth: "48rem" }} mx="auto" py="8">
       <article>
-        <Text size="2" asChild color="gray">
-          <time dateTime={post.date}>
-            {format(parseISO(post.date), "LLLL d, yyyy")}
-          </time>
-        </Text>
-        <Heading size="8" as="h1">
+        <Flex gap="2" align="center">
+          <CategoryBadge category={post.category} />
+          <Text size="2" asChild color="gray">
+            <time dateTime={post.date}>
+              {format(parseISO(post.date), "LLLL d, yyyy")}
+            </time>
+          </Text>
+        </Flex>
+        <Heading size="8" mt="5" as="h1">
           {post.title}
         </Heading>
         {post.description && (
-          <Text size="5" mb="6" as="p" color="gray">
+          <Text size="5" mt="4" as="p" color="gray">
             {post.description}
           </Text>
         )}
         {post.cover && (
-          <Box mb="6">
+          <Box mt="5">
             <AspectRatio ratio={16 / 8}>
               <Image
                 src={post.cover}
@@ -90,7 +94,9 @@ export default function PostPage({ params }: PostProps) {
             </AspectRatio>
           </Box>
         )}
-        <Mdx code={post.body.code} />
+        <Box mt="9">
+          <Mdx code={post.body.code} />
+        </Box>
       </article>
       <Flex gap="2" mt="8">
         {post.tags?.map((tag) => (
